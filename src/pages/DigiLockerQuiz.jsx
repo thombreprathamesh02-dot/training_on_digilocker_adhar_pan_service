@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 function DigiLockerQuiz() {
   const navigate = useNavigate();
@@ -12,17 +13,17 @@ function DigiLockerQuiz() {
 
   const questions = [
     {
-      question: "DigiLocker चा मुख्य उपयोग काय आहे?",
+      question: "What is the main purpose of DigiLocker?",
       options: [
-        "Digital documents access करणे",
-        "Online games खेळणे",
-        "Shopping करणे",
-        "Movies पाहणे",
+        "Access digital documents",
+        "Play online games",
+        "Shop online",
+        "Watch movies",
       ],
       answer: 0,
     },
     {
-      question: "DigiLocker मध्ये काय access करता येते?",
+      question: "What can be accessed through DigiLocker?",
       options: [
         "Digital documents",
         "Food items",
@@ -32,7 +33,7 @@ function DigiLockerQuiz() {
       answer: 0,
     },
     {
-      question: "DigiLocker कोणत्या प्रकारची service आहे?",
+      question: "What type of service is DigiLocker?",
       options: [
         "Digital document service",
         "Gaming service",
@@ -42,7 +43,7 @@ function DigiLockerQuiz() {
       answer: 0,
     },
     {
-      question: "DigiLocker वापरताना काय महत्त्वाचे आहे?",
+      question: "What is important when using DigiLocker?",
       options: [
         "Account security",
         "Game score",
@@ -52,7 +53,7 @@ function DigiLockerQuiz() {
       answer: 0,
     },
     {
-      question: "DigiLocker मध्ये documents कशा स्वरूपात उपलब्ध होतात?",
+      question: "In what form are documents available in DigiLocker?",
       options: [
         "Digital form",
         "Food form",
@@ -117,9 +118,11 @@ function DigiLockerQuiz() {
               </p>
 
               <button
+                className="quiz-dashboard-button"
                 onClick={() => navigate("/dashboard")}
               >
                 Go to Dashboard
+                <ArrowRight size={18} />
               </button>
             </>
           ) : (
@@ -129,6 +132,7 @@ function DigiLockerQuiz() {
               </p>
 
               <button
+                className="quiz-dashboard-button"
                 onClick={() => window.location.reload()}
               >
                 Try Again

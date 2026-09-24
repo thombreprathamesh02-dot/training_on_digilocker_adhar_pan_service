@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 function AadhaarQuiz() {
   const navigate = useNavigate();
@@ -12,17 +13,17 @@ function AadhaarQuiz() {
 
   const questions = [
     {
-      question: "Aadhaar मध्ये किती digits असतात?",
+      question: "How many digits are there in an Aadhaar number?",
       options: ["10", "12", "14", "16"],
       answer: 1,
     },
     {
-      question: "Aadhaar service कोणत्या संस्थेशी संबंधित आहे?",
+      question: "Which organization is associated with Aadhaar services?",
       options: ["UIDAI", "RBI", "ISRO", "IRDAI"],
       answer: 0,
     },
     {
-      question: "Aadhaar चा उपयोग कशासाठी केला जाऊ शकतो?",
+      question: "What can Aadhaar be used for?",
       options: [
         "Identity verification",
         "Online gaming",
@@ -32,7 +33,7 @@ function AadhaarQuiz() {
       answer: 0,
     },
     {
-      question: "Aadhaar मध्ये कोणती माहिती update करता येऊ शकते?",
+      question: "What type of information can be updated in Aadhaar through supported services?",
       options: [
         "Certain personal details",
         "Game score",
@@ -42,12 +43,12 @@ function AadhaarQuiz() {
       answer: 0,
     },
     {
-      question: "Aadhaar म्हणजे काय?",
+      question: "What is Aadhaar?",
       options: [
-        "Unique identification number",
-        "Bank account",
-        "Driving licence",
-        "Shopping card",
+        "A unique identification number",
+        "A bank account",
+        "A driving licence",
+        "A shopping card",
       ],
       answer: 0,
     },
@@ -106,9 +107,11 @@ function AadhaarQuiz() {
               </p>
 
               <button
+                className="quiz-dashboard-button"
                 onClick={() => navigate("/dashboard")}
               >
                 Go to Dashboard
+                <ArrowRight size={18} />
               </button>
             </>
           ) : (
@@ -118,6 +121,7 @@ function AadhaarQuiz() {
               </p>
 
               <button
+                className="quiz-dashboard-button"
                 onClick={() => window.location.reload()}
               >
                 Try Again

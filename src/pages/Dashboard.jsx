@@ -1,218 +1,306 @@
 import { Link } from "react-router-dom";
 import {
-  FolderLock,
+  BookOpen,
   ShieldCheck,
+  FolderLock,
   CreditCard,
   CheckCircle,
-  Trophy,
   ArrowRight,
+  User,
+  Award,
 } from "lucide-react";
 
 function Dashboard() {
+  const registeredUser =
+    JSON.parse(localStorage.getItem("registeredUser")) || {};
 
-  const user = JSON.parse(
-    localStorage.getItem("registeredUser") || "{}"
-  );
+  const userEmail = registeredUser?.email || "guest";
 
-  const userEmail = user?.email || "guest";
-
-  const digilocker =
+  // Module completion status
+  const digilockerCompleted =
     localStorage.getItem(`digilockerCompleted_${userEmail}`) === "true";
 
-  const aadhaar =
+  const aadhaarCompleted =
     localStorage.getItem(`aadhaarCompleted_${userEmail}`) === "true";
 
-  const pan =
+  const panCompleted =
     localStorage.getItem(`panCompleted_${userEmail}`) === "true";
 
   const completedModules = [
-    digilocker,
-    aadhaar,
-    pan,
+    digilockerCompleted,
+    aadhaarCompleted,
+    panCompleted,
   ].filter(Boolean).length;
 
-  const progress = Math.round(
-    (completedModules / 3) * 100
-  );
+  const progress = Math.round((completedModules / 3) * 100);
 
   return (
-    <div className="dashboard-page">
+    <div className="professional-dashboard">
 
-      {/* Welcome */}
-
-      <section className="dashboard-welcome">
+      {/* HEADER */}
+      <section className="dashboard-header">
 
         <div>
-          <span className="dashboard-label">
+          <span className="dashboard-badge">
             DIGITAL SEVA TRAINING PORTAL
           </span>
 
           <h1>
-            Welcome, {user?.name || "Learner"} 👋
+            Welcome, {registeredUser?.name || "Learner"}
           </h1>
 
           <p>
-            Continue your training and complete
-            all three digital service modules.
+            Continue your digital services training and
+            improve your knowledge of DigiLocker, Aadhaar
+            and PAN services.
           </p>
         </div>
 
-        <div className="dashboard-trophy">
-          <Trophy size={42} />
-        </div>
+        <Link to="/profile" className="profile-button">
+          <User size={18} />
+          Profile
+        </Link>
 
       </section>
 
 
-      {/* Progress */}
+      {/* PROGRESS CARD */}
+      <section className="overall-progress-card">
 
-      <section className="overall-progress">
-
-        <div className="progress-header">
+        <div className="progress-top">
 
           <div>
-            <strong>Overall Training Progress</strong>
+            <span className="section-label">
+              OVERALL TRAINING PROGRESS
+            </span>
 
-            <p>
-              {completedModules} of 3 modules completed
-            </p>
+            <h2>
+              {completedModules}/3 Modules Completed
+            </h2>
           </div>
 
-          <strong className="progress-percentage">
+          <div className="progress-percentage">
             {progress}%
-          </strong>
+          </div>
 
         </div>
 
         <div className="dashboard-progress-bar">
-
           <div
-            style={{
-              width: `${progress}%`,
-            }}
+            className="dashboard-progress-fill"
+            style={{ width: `${progress}%` }}
           ></div>
-
         </div>
+
+        <p>
+          {completedModules === 3
+            ? "Congratulations! You have completed all training modules."
+            : `Complete ${3 - completedModules} more module${3 - completedModules > 1 ? "s" : ""
+            } to finish your training.`}
+        </p>
 
       </section>
 
 
-      {/* Modules */}
-
-      <section className="dashboard-section">
+      {/* TRAINING MODULES */}
+      <section className="training-modules-section">
 
         <div className="section-heading">
-          <span>TRAINING</span>
-          <h2>Your Modules</h2>
+
+          <div>
+            <span className="section-label">
+              LEARNING PROGRAM
+            </span>
+
+            <h2>Training Modules</h2>
+
+            <p>
+              Learn essential digital services through
+              structured training modules.
+            </p>
+          </div>
+
+          <BookOpen size={32} />
+
         </div>
 
 
-        <div className="dashboard-modules">
+        <div className="training-modules-grid">
 
-          {/* DigiLocker */}
 
-          <div className="module-card">
+          {/* DIGILOCKER */}
+          <div className="training-module-card">
 
-            <div className="module-icon digilocker-icon">
-              <FolderLock size={28} />
-            </div>
+            <div className="module-card-top">
 
-            <div className="module-info">
-
-              <span>MODULE 01</span>
-
-              <h3>DigiLocker Training</h3>
-
-              <p>
-                Learn about digital documents
-                and DigiLocker services.
-              </p>
-
-            </div>
-
-            {digilocker ? (
-              <div className="module-completed">
-                <CheckCircle size={18} />
-                Completed
+              <div className="module-icon digilocker-module-icon">
+                <FolderLock size={30} />
               </div>
-            ) : (
-              <Link to="/digilocker">
-                Start
-                <ArrowRight size={17} />
-              </Link>
-            )}
+
+              {digilockerCompleted && (
+                <span className="completed-badge">
+                  <CheckCircle size={15} />
+                  Completed
+                </span>
+              )}
+
+            </div>
+
+            <span className="module-number">
+              MODULE 01
+            </span>
+
+            <h3>DigiLocker Training</h3>
+
+            <p>
+              Learn how to access, manage and share
+              important digital documents using DigiLocker.
+            </p>
+
+            <div className="module-status">
+
+              <span>
+                {digilockerCompleted
+                  ? "Training Completed"
+                  : "Not Completed"}
+              </span>
+
+              {digilockerCompleted ? (
+                <CheckCircle size={19} />
+              ) : (
+                <span>0%</span>
+              )}
+
+            </div>
+
+            <Link
+              to="/digilocker"
+              className="module-button"
+            >
+              {digilockerCompleted
+                ? "View Training"
+                : "Start Training"}
+
+              <ArrowRight size={18} />
+            </Link>
 
           </div>
 
 
-          {/* Aadhaar */}
+          {/* AADHAAR */}
+          <div className="training-module-card">
 
-          <div className="module-card">
+            <div className="module-card-top">
 
-            <div className="module-icon aadhaar-icon">
-              <ShieldCheck size={28} />
-            </div>
-
-            <div className="module-info">
-
-              <span>MODULE 02</span>
-
-              <h3>Aadhaar Training</h3>
-
-              <p>
-                Learn about Aadhaar services
-                and digital safety.
-              </p>
-
-            </div>
-
-            {aadhaar ? (
-              <div className="module-completed">
-                <CheckCircle size={18} />
-                Completed
+              <div className="module-icon aadhaar-module-icon">
+                <ShieldCheck size={30} />
               </div>
-            ) : (
-              <Link to="/aadhaar">
-                Start
-                <ArrowRight size={17} />
-              </Link>
-            )}
+
+              {aadhaarCompleted && (
+                <span className="completed-badge">
+                  <CheckCircle size={15} />
+                  Completed
+                </span>
+              )}
+
+            </div>
+
+            <span className="module-number">
+              MODULE 02
+            </span>
+
+            <h3>Aadhaar Services Training</h3>
+
+            <p>
+              Learn the basic concepts of Aadhaar,
+              common services and important safety practices.
+            </p>
+
+            <div className="module-status">
+
+              <span>
+                {aadhaarCompleted
+                  ? "Training Completed"
+                  : "Not Completed"}
+              </span>
+
+              {aadhaarCompleted ? (
+                <CheckCircle size={19} />
+              ) : (
+                <span>0%</span>
+              )}
+
+            </div>
+
+            <Link
+              to="/aadhaar"
+              className="module-button"
+            >
+              {aadhaarCompleted
+                ? "View Training"
+                : "Start Training"}
+
+              <ArrowRight size={18} />
+            </Link>
 
           </div>
 
 
           {/* PAN */}
+          <div className="training-module-card">
 
-          <div className="module-card">
+            <div className="module-card-top">
 
-            <div className="module-icon pan-icon">
-              <CreditCard size={28} />
-            </div>
-
-            <div className="module-info">
-
-              <span>MODULE 03</span>
-
-              <h3>PAN Training</h3>
-
-              <p>
-                Learn about PAN services
-                and safe digital practices.
-              </p>
-
-            </div>
-
-            {pan ? (
-              <div className="module-completed">
-                <CheckCircle size={18} />
-                Completed
+              <div className="module-icon pan-module-icon">
+                <CreditCard size={30} />
               </div>
-            ) : (
-              <Link to="/pan">
-                Start
-                <ArrowRight size={17} />
-              </Link>
-            )}
+
+              {panCompleted && (
+                <span className="completed-badge">
+                  <CheckCircle size={15} />
+                  Completed
+                </span>
+              )}
+
+            </div>
+
+            <span className="module-number">
+              MODULE 03
+            </span>
+
+            <h3>PAN Services Training</h3>
+
+            <p>
+              Learn the purpose of PAN, basic services,
+              tax-related uses and financial transactions.
+            </p>
+
+            <div className="module-status">
+
+              <span>
+                {panCompleted
+                  ? "Training Completed"
+                  : "Not Completed"}
+              </span>
+
+              {panCompleted ? (
+                <CheckCircle size={19} />
+              ) : (
+                <span>0%</span>
+              )}
+
+            </div>
+
+            <Link
+              to="/pan"
+              className="module-button"
+            >
+              {panCompleted
+                ? "View Training"
+                : "Start Training"}
+
+              <ArrowRight size={18} />
+            </Link>
 
           </div>
 
@@ -221,40 +309,44 @@ function Dashboard() {
       </section>
 
 
-      {/* Quiz */}
+      {/* CERTIFICATE SECTION */}
+      <section className="certificate-dashboard-section">
 
-      <section className="dashboard-bottom">
+        <div className="certificate-dashboard-card">
 
-        <div className="dashboard-quiz-card">
-
-          <div className="dashboard-bottom-icon">
-            <Trophy size={28} />
+          <div className="certificate-dashboard-icon">
+            <Award size={32} />
           </div>
 
-          <div>
+          <div className="certificate-dashboard-content">
+            <span className="section-label">
+              ACHIEVEMENT
+            </span>
 
-            <span>FINAL ASSESSMENT</span>
-
-            <h2>Digital Seva Quiz</h2>
+            <h2>Training Certificate</h2>
 
             <p>
-              Complete all three training modules
-              and take the final quiz.
+              Complete all three training modules and pass
+              the final quiz to access your Digital Services
+              Training Certificate.
             </p>
 
-          </div>
-          {digilocker && aadhaar && pan ? (
-            <Link to="/quiz" className="service-quiz-button">
-              Start Final Quiz →
+            <div className="certificate-dashboard-status">
+              <span>
+                {completedModules === 3
+                  ? "All Modules Completed"
+                  : `${completedModules}/3 Modules Completed`}
+              </span>
+            </div>
+
+            <Link
+              to="/certificate"
+              className="certificate-dashboard-button"
+            >
+              View Certificate
+              <ArrowRight size={18} />
             </Link>
-          ) : (
-            <p>
-              Complete DigiLocker, Aadhaar and PAN training
-              to unlock the Final Quiz.
-            </p>
-          )}
-
-
+          </div>
 
         </div>
 

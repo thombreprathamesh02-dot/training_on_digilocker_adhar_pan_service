@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 function PANQuiz() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ function PANQuiz() {
 
   const questions = [
     {
-      question: "PAN चा full form काय आहे?",
+      question: "What is the full form of PAN?",
       options: [
         "Permanent Account Number",
         "Personal Account Number",
@@ -22,12 +23,12 @@ function PANQuiz() {
       answer: 0,
     },
     {
-      question: "PAN मध्ये किती characters असतात?",
+      question: "How many characters does a PAN contain?",
       options: ["8", "10", "12", "14"],
       answer: 1,
     },
     {
-      question: "PAN कोणत्या विभागाकडून जारी केला जातो?",
+      question: "Which department issues PAN?",
       options: [
         "Income Tax Department",
         "Railway Department",
@@ -37,7 +38,7 @@ function PANQuiz() {
       answer: 0,
     },
     {
-      question: "PAN चा उपयोग मुख्यतः कशासाठी होतो?",
+      question: "What is PAN mainly used for?",
       options: [
         "Tax-related work",
         "Online gaming",
@@ -47,7 +48,7 @@ function PANQuiz() {
       answer: 0,
     },
     {
-      question: "PAN कोणत्या प्रकारचा number आहे?",
+      question: "What type of number is PAN?",
       options: [
         "Alphanumeric",
         "Only numeric",
@@ -111,9 +112,11 @@ function PANQuiz() {
               </p>
 
               <button
+                className="quiz-dashboard-button"
                 onClick={() => navigate("/dashboard")}
               >
                 Go to Dashboard
+                <ArrowRight size={18} />
               </button>
             </>
           ) : (
@@ -123,6 +126,7 @@ function PANQuiz() {
               </p>
 
               <button
+                className="quiz-dashboard-button"
                 onClick={() => window.location.reload()}
               >
                 Try Again

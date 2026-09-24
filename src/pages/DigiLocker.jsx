@@ -349,12 +349,12 @@ function DigiLocker() {
 
               </div>
 
-              <button onClick={handleComplete}>
-
-                <CheckCircle size={18} />
-
-                Mark as Completed
-
+              <button
+                className="quiz-dashboard-button"
+                onClick={() => navigate("/dashboard")}
+              >
+                Go to Dashboard
+                <ArrowRight size={18} />
               </button>
 
             </>
