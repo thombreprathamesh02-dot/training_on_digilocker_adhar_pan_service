@@ -12,19 +12,36 @@ import {
 
 function Dashboard() {
   const registeredUser =
-    JSON.parse(localStorage.getItem("registeredUser")) || {};
+    JSON.parse(
+      localStorage.getItem("registeredUser") || "{}"
+    );
 
-  const userEmail = registeredUser?.email || "guest";
+  const userEmail =
+    registeredUser?.email || "guest";
 
-  // Module completion status
+  // =========================
+  // MODULE COMPLETION STATUS
+  // =========================
+
   const digilockerCompleted =
-    localStorage.getItem(`digilockerCompleted_${userEmail}`) === "true";
+    localStorage.getItem(
+      `digilockerCompleted_${userEmail}`
+    ) === "true";
 
   const aadhaarCompleted =
-    localStorage.getItem(`aadhaarCompleted_${userEmail}`) === "true";
+    localStorage.getItem(
+      `aadhaarCompleted_${userEmail}`
+    ) === "true";
 
   const panCompleted =
-    localStorage.getItem(`panCompleted_${userEmail}`) === "true";
+    localStorage.getItem(
+      `panCompleted_${userEmail}`
+    ) === "true";
+
+
+  // =========================
+  // OVERALL PROGRESS
+  // =========================
 
   const completedModules = [
     digilockerCompleted,
@@ -32,31 +49,71 @@ function Dashboard() {
     panCompleted,
   ].filter(Boolean).length;
 
-  const progress = Math.round((completedModules / 3) * 100);
+  const progress = Math.round(
+    (completedModules / 3) * 100
+  );
+
+
+  // =========================
+  // FINAL QUIZ STATUS
+  // =========================
+
+  const finalQuizCompleted =
+    localStorage.getItem(
+      `quizCompleted_${userEmail}`
+    ) === "true";
+
+  const finalQuizScore =
+    Number(
+      localStorage.getItem(
+        `quizScore_${userEmail}`
+      ) || 0
+    );
+
+
+  // =========================
+  // CERTIFICATE STATUS
+  // =========================
+
+  const certificateReady =
+    completedModules === 3 &&
+    finalQuizCompleted;
+
 
   return (
     <div className="professional-dashboard">
 
-      {/* HEADER */}
+
+      {/* =========================
+          HEADER
+      ========================== */}
+
       <section className="dashboard-header">
 
         <div>
+
           <span className="dashboard-badge">
             DIGITAL SEVA TRAINING PORTAL
           </span>
 
           <h1>
-            Welcome, {registeredUser?.name || "Learner"}
+            Welcome,{" "}
+            {registeredUser?.name || "Learner"}
           </h1>
 
           <p>
-            Continue your digital services training and
-            improve your knowledge of DigiLocker, Aadhaar
-            and PAN services.
+            Continue your digital services training
+            and improve your knowledge of DigiLocker,
+            Aadhaar and PAN services.
           </p>
+
         </div>
 
-        <Link to="/profile" className="profile-button">
+
+        <Link
+          to="/profile"
+          className="profile-button"
+        >
           <User size={18} />
           Profile
         </Link>
@@ -64,12 +121,16 @@ function Dashboard() {
       </section>
 
 
-      {/* PROGRESS CARD */}
+      {/* =========================
+          OVERALL PROGRESS
+      ========================== */}
+
       <section className="overall-progress-card">
 
         <div className="progress-top">
 
           <div>
+
             <span className="section-label">
               OVERALL TRAINING PROGRESS
             </span>
@@ -77,7 +138,9 @@ function Dashboard() {
             <h2>
               {completedModules}/3 Modules Completed
             </h2>
+
           </div>
+
 
           <div className="progress-percentage">
             {progress}%
@@ -85,39 +148,60 @@ function Dashboard() {
 
         </div>
 
+
         <div className="dashboard-progress-bar">
+
           <div
             className="dashboard-progress-fill"
-            style={{ width: `${progress}%` }}
+            style={{
+              width: `${progress}%`,
+            }}
           ></div>
+
         </div>
 
+
         <p>
+
           {completedModules === 3
-            ? "Congratulations! You have completed all training modules."
-            : `Complete ${3 - completedModules} more module${3 - completedModules > 1 ? "s" : ""
-            } to finish your training.`}
+            ? "All three training modules have been completed."
+            : `Complete ${
+                3 - completedModules
+              } more module${
+                3 - completedModules > 1
+                  ? "s"
+                  : ""
+              } to finish your training.`}
+
         </p>
 
       </section>
 
 
-      {/* TRAINING MODULES */}
+      {/* =========================
+          TRAINING MODULES
+      ========================== */}
+
       <section className="training-modules-section">
 
         <div className="section-heading">
 
           <div>
+
             <span className="section-label">
               LEARNING PROGRAM
             </span>
 
-            <h2>Training Modules</h2>
+            <h2>
+              Training Modules
+            </h2>
 
             <p>
-              Learn essential digital services through
-              structured training modules.
+              Complete each module and take the
+              corresponding quiz to track your
+              learning progress.
             </p>
+
           </div>
 
           <BookOpen size={32} />
@@ -128,7 +212,10 @@ function Dashboard() {
         <div className="training-modules-grid">
 
 
-          {/* DIGILOCKER */}
+          {/* =========================
+              DIGILOCKER
+          ========================== */}
+
           <div className="training-module-card">
 
             <div className="module-card-top">
@@ -146,16 +233,21 @@ function Dashboard() {
 
             </div>
 
+
             <span className="module-number">
               MODULE 01
             </span>
 
-            <h3>DigiLocker Training</h3>
+            <h3>
+              DigiLocker Training
+            </h3>
 
             <p>
               Learn how to access, manage and share
-              important digital documents using DigiLocker.
+              important digital documents using
+              DigiLocker.
             </p>
+
 
             <div className="module-status">
 
@@ -173,6 +265,7 @@ function Dashboard() {
 
             </div>
 
+
             <Link
               to="/digilocker"
               className="module-button"
@@ -187,7 +280,10 @@ function Dashboard() {
           </div>
 
 
-          {/* AADHAAR */}
+          {/* =========================
+              AADHAAR
+          ========================== */}
+
           <div className="training-module-card">
 
             <div className="module-card-top">
@@ -205,16 +301,21 @@ function Dashboard() {
 
             </div>
 
+
             <span className="module-number">
               MODULE 02
             </span>
 
-            <h3>Aadhaar Services Training</h3>
+            <h3>
+              Aadhaar Services Training
+            </h3>
 
             <p>
               Learn the basic concepts of Aadhaar,
-              common services and important safety practices.
+              common services and important safety
+              practices.
             </p>
+
 
             <div className="module-status">
 
@@ -232,6 +333,7 @@ function Dashboard() {
 
             </div>
 
+
             <Link
               to="/aadhaar"
               className="module-button"
@@ -246,7 +348,10 @@ function Dashboard() {
           </div>
 
 
-          {/* PAN */}
+          {/* =========================
+              PAN
+          ========================== */}
+
           <div className="training-module-card">
 
             <div className="module-card-top">
@@ -264,16 +369,21 @@ function Dashboard() {
 
             </div>
 
+
             <span className="module-number">
               MODULE 03
             </span>
 
-            <h3>PAN Services Training</h3>
+            <h3>
+              PAN Services Training
+            </h3>
 
             <p>
-              Learn the purpose of PAN, basic services,
-              tax-related uses and financial transactions.
+              Learn the purpose of PAN, basic
+              services, tax-related uses and
+              financial transactions.
             </p>
+
 
             <div className="module-status">
 
@@ -290,6 +400,7 @@ function Dashboard() {
               )}
 
             </div>
+
 
             <Link
               to="/pan"
@@ -309,43 +420,142 @@ function Dashboard() {
       </section>
 
 
-      {/* CERTIFICATE SECTION */}
+      {/* =========================
+          FINAL QUIZ
+      ========================== */}
+
+      <section className="final-quiz-dashboard-section">
+
+        <div className="final-quiz-dashboard-card">
+
+          <div className="certificate-dashboard-icon">
+            <BookOpen size={32} />
+          </div>
+
+
+          <div className="certificate-dashboard-content">
+
+            <span className="section-label">
+              FINAL ASSESSMENT
+            </span>
+
+            <h2>
+              Final Training Quiz
+            </h2>
+
+            <p>
+              Test your knowledge of DigiLocker,
+              Aadhaar and PAN services through
+              the final assessment.
+            </p>
+
+
+            {finalQuizCompleted ? (
+
+              <div className="certificate-dashboard-status">
+
+                <span>
+                  Final Quiz Completed
+                </span>
+
+                <span>
+                  Score: {finalQuizScore}/10
+                </span>
+
+              </div>
+
+            ) : (
+
+              <div className="certificate-dashboard-status">
+
+                <span>
+                  Final Quiz Not Completed
+                </span>
+
+              </div>
+
+            )}
+
+
+            <Link
+              to="/quiz"
+              className="certificate-dashboard-button"
+            >
+              {finalQuizCompleted
+                ? "View Final Quiz"
+                : "Start Final Quiz"}
+
+              <ArrowRight size={18} />
+
+            </Link>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =========================
+          CERTIFICATE
+      ========================== */}
+
       <section className="certificate-dashboard-section">
 
         <div className="certificate-dashboard-card">
 
           <div className="certificate-dashboard-icon">
+
             <Award size={32} />
+
           </div>
 
+
           <div className="certificate-dashboard-content">
+
             <span className="section-label">
               ACHIEVEMENT
             </span>
 
-            <h2>Training Certificate</h2>
+            <h2>
+              Training Certificate
+            </h2>
+
 
             <p>
-              Complete all three training modules and pass
-              the final quiz to access your Digital Services
-              Training Certificate.
+
+              {certificateReady
+                ? "Your Digital Services Training Certificate is ready."
+                : "Complete all three modules and pass the final quiz to access your certificate."}
+
             </p>
 
+
             <div className="certificate-dashboard-status">
+
               <span>
-                {completedModules === 3
-                  ? "All Modules Completed"
+
+                {certificateReady
+                  ? "Certificate Ready"
                   : `${completedModules}/3 Modules Completed`}
+
               </span>
+
             </div>
+
 
             <Link
               to="/certificate"
               className="certificate-dashboard-button"
             >
-              View Certificate
+              {certificateReady
+                ? "View Certificate"
+                : "Certificate Details"}
+
               <ArrowRight size={18} />
+
             </Link>
+
           </div>
 
         </div>
