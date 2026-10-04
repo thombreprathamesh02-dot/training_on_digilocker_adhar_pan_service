@@ -165,13 +165,11 @@ function Dashboard() {
 
           {completedModules === 3
             ? "All three training modules have been completed."
-            : `Complete ${
-                3 - completedModules
-              } more module${
-                3 - completedModules > 1
-                  ? "s"
-                  : ""
-              } to finish your training.`}
+            : `Complete ${3 - completedModules
+            } more module${3 - completedModules > 1
+              ? "s"
+              : ""
+            } to finish your training.`}
 
         </p>
 
@@ -487,6 +485,40 @@ function Dashboard() {
 
               <ArrowRight size={18} />
 
+            </Link>
+
+          </div>
+
+        </div>
+
+      </section>
+      <section className="certificate-dashboard-section">
+
+        <div className="certificate-dashboard-card">
+
+          <div className="certificate-dashboard-icon">
+            <BookOpen size={32} />
+          </div>
+
+          <div className="certificate-dashboard-content">
+
+            <span className="section-label">
+              PRACTICAL LEARNING
+            </span>
+
+            <h2>Learn How Digital Services Work</h2>
+
+            <p>
+              Explore step-by-step guides for DigiLocker,
+              Aadhaar and PAN services.
+            </p>
+
+            <Link
+              to="/practical-learning"
+              className="certificate-dashboard-button"
+            >
+              Start Practical Learning
+              <ArrowRight size={18} />
             </Link>
 
           </div>

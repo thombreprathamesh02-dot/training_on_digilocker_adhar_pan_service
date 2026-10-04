@@ -14,7 +14,10 @@ import Aadhaar from "./pages/Aadhaar";
 import PAN from "./pages/PAN";
 import Quiz from "./pages/Quiz";
 import Certificate from "./pages/Certificate";
-
+import PracticalLearning from "./pages/PracticalLearning";
+import DigiLockerPractical from "./pages/DigiLockerPractical";
+import AadhaarPractical from "./pages/AadhaarPractical";
+import PANPractical from "./pages/PANPractical";
 
 function ProtectedRoute({ children }) {
 
@@ -168,7 +171,38 @@ function AppContent() {
             <Navigate to="/" replace />
           }
         />
-
+        <Route
+          path="/practical-learning"
+          element={
+            <ProtectedRoute>
+              <PracticalLearning />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/digilocker-practical"
+          element={
+            <ProtectedRoute>
+              <DigiLockerPractical />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/aadhaar-practical"
+          element={
+            <ProtectedRoute>
+              <AadhaarPractical />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/pan-practical"
+          element={
+            <ProtectedRoute>
+              <PANPractical />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );
